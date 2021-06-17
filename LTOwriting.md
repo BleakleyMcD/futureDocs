@@ -2,6 +2,7 @@
 title: LTO
 layout: default
 nav_order: 1
+
 ---
 
 # LTO Writing
@@ -21,24 +22,28 @@ nav_order: 1
 
 3. If verifying the checksums is desired run:
 * `rsync -vPic --stats --exclude=”.*” <source> <destination>`
-7
- 
 
-11.2.	Change permissions of all files on LTO drive to 777.
-11.2.1.	chmod 777 -vR <LTO_drive>
-11.2.1.1.	This should avoid any permissions errors that may slow down the writing.
-11.3.	Now that files we want to write to LTO are on one of our two staging areas it is time to name the tape(s) to which we will write and the directory from which we will write from.
-11.4.	Our tape naming convention for LTO tapes is LT001A, LT001B, LT002A, LT002B, LT010A, LT010B, LT011A, LT001B, etc. Note that those are zeros not O’s.
-11.5.	We want to fill tapes with between 2TB and 2.2TB of data. Try not to go over 2.2TB and definitely don’t go over 2.3TB. 2.4 is the total capacity of each tape. If you don’t have enough material it is ok to fill a lesser amount than 2.0TB and then fill in with more data later, but it is much preferable to write a full tape in one pass.
-11.6.	Within the LTO Mac drive there is a directory called LTO and that is where you will create the directory for the tape you would like to write to - i.e. LT001A. The full path for this will look like:
-11.6.1.	/Volumes/LTO/LTO/LT001A/<contents>
-11.7.	Within the UtilitySAN there is a directory called a LTO and within that another directory called LTO. Inside this second directory is where you will create the directory for the tape you would like to write to - i.e. LT001A. The full path for this will look like:
-11.7.1.	/Volumes/UtilitySAN/LTO/LTO/LT001A/<contents>
-11.8.	Fill the LTO write directory (LT001A in the above examples) with between 2.0 and 2.2 TB of data.
-11.8.1.	Since all the files are already on the drive this can be accomplished by simply dragging the files into the directory.
-11.9.	To ease in the comparison of checksums once the LTO tape has been written we want to copy all checksums that will be being written to the tape into a single file which we will call LT001A_checksums.txt. This is easily accomplished by the following command:
-★ find /Volumes/UtilitySAN/LTO/LTO/LT001A -name “*.md5” -exec cat {} >>
-/Volumes/UtilitySAN/LTO/LTO/LT001A/LT001A_checksums.txt
+4. Change permissions of all files on LTO drive to 777.
+* `chmod 777 -vR <LTO_drive>`
+* This should avoid any permissions errors that may slow down the writing.
+
+5. Now that files we want to write to LTO are on one of our two staging areas it is time to name the tape(s) to which we will write and the directory from which we will write from.
+
+6. Our tape naming convention for LTO tapes is LT001A, LT001B, LT002A, LT002B, LT010A, LT010B, LT011A, LT001B, etc. Note that those are zeros not O’s.
+
+7. We want to fill tapes with between 2TB and 2.2TB of data. Try not to go over 2.2TB and definitely don’t go over 2.3TB. 2.4 is the total capacity of each tape. If you don’t have enough material it is ok to fill a lesser amount than 2.0TB and then fill in with more data later, but it is much preferable to write a full tape in one pass.
+
+8. Within the LTO Mac drive there is a directory called LTO and that is where you will create the directory for the tape you would like to write to - i.e. LT001A. The full path for this will look like: /Volumes/LTO/LTO/LT001A/<contents>
+
+9. Within the UtilitySAN there is a directory called a LTO and within that another directory called LTO. Inside this second directory is where you will create the directory for the tape you would like to write to - i.e. LT001A. The full path for this will look like: /Volumes/UtilitySAN/LTO/LTO/LT001A/<contents>
+
+10. Fill the LTO write directory (LT001A in the above examples) with between 2.0 and 2.2 TB of data.
+
+11. Since all the files are already on the drive this can be accomplished by simply dragging the files into the directory.
+
+12. To ease in the comparison of checksums once the LTO tape has been written we want to copy all checksums that will be being written to the tape into a single file which we will call LT001A_checksums.txt. This is easily accomplished by the following command:
+`find /Volumes/UtilitySAN/LTO/LTO/LT001A -name “*.md5” -exec cat {} >>
+/Volumes/UtilitySAN/LTO/LTO/LT001A/LT001A_checksums.txt`
 This command will locate any files in directory LT001A (which we have just filled with all the files we want to write to LTO) that end with .md5. If all the files in LT001A have been properly checksummed to a .md5 file (which they should be) then this command will concatenate them all and write them to a new file, LT001A_checksums.txt
 11.10.	We want the checksums to be sorted by file name, which the concat command about did not do. So run:
 
