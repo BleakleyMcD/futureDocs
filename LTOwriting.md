@@ -44,16 +44,14 @@ nav_order: 1
 12. To ease in the comparison of checksums once the LTO tape has been written we want to copy all checksums that will be being written to the tape into a single file which we will call LT001A_checksums.txt. This is easily accomplished by the following command:
 `find /Volumes/UtilitySAN/LTO/LTO/LT001A -name “*.md5” -exec cat {} >>
 /Volumes/UtilitySAN/LTO/LTO/LT001A/LT001A_checksums.txt`
-This command will locate any files in directory LT001A (which we have just filled with all the files we want to write to LTO) that end with .md5. If all the files in LT001A have been properly checksummed to a .md5 file (which they should be) then this command will concatenate them all and write them to a new file, LT001A_checksums.txt
-11.10.	We want the checksums to be sorted by file name, which the concat command about did not do. So run:
 
-8
- 
+13. This command will locate any files in directory LT001A (which we have just filled with all the files we want to write to LTO) that end with .md5. If all the files in LT001A have been properly checksummed to a .md5 file (which they should be) then this command will concatenate them all and write them to a new file, LT001A_checksums.txt
 
-★ sort -k 2 -o
+14. We want the checksums to be sorted by file name, which the concat command about did not do. So run: `sort -k 2 -o
 /Volumes/UtilitySAN/LTO/LTO/LT001A/LT001A_checksums.txt
-/Volumes/UtilitySAN/LTO/LTO/LT001A/LT001A_checksums.txt
-The file is now sorted. Open it and remove any .DS_Store lines and lines that are checksums of any checksum files. Delete these in the .md5 files that were concatenated as well.
+/Volumes/UtilitySAN/LTO/LTO/LT001A/LT001A_checksums.txt`
+
+15. The file is now sorted. Open it and remove any .DS_Store lines and lines that are checksums of any checksum files. Delete these in the .md5 files that were concatenated as well.
 11.11.	Let’s do one final remove of any hidden files in LT001A:
 ★ find <LTO_drive> -name “.*” -exec rm -vr {} \;
 ★ run as sudo, too, to remove spotlight, etc. (Is this automatic?)
