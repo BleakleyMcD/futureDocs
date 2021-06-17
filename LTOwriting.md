@@ -5,7 +5,7 @@ nav_order: 1
 
 ---
 
-# LTO Writing
+# LTO Writing WHATS WRONG
 ## We write many of our preservation and DPX files to LTO tape. This process is done entirely through the command line and is based on following steps 3, 7 and 9 of this document for creating DPX packages and video preservation AIP. 
 ## The process for writing LTO tapes is based on three main steps:
 1.	Getting the files to be written to LTO to one of our two staging areas and validating all checksums
